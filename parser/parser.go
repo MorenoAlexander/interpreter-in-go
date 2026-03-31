@@ -1,7 +1,9 @@
 package parser
 
 import (
+	"context"
 	"fmt"
+	"runtime/trace"
 	"strconv"
 
 	"github.com/MorenoAlexander/interpreter-in-go/ast"
@@ -234,6 +236,7 @@ func (p *Parser) noPrefixParseFnError(t token.TokenType) {
 }
 
 func (p *Parser) parsePrefixExpression() ast.Expression {
+	defer trace.StartRegion(context.Background(), "parsePrefixExpression").End()
 	expression := &ast.PrefixExpression{
 		Token:    p.curToken,
 		Operator: p.curToken.Literal,
@@ -263,6 +266,7 @@ func (p *Parser) curPrecedence() int {
 }
 
 func (p *Parser) parseInfixExpression(left ast.Expression) ast.Expression {
+
 	expression := &ast.InfixExpression{
 		Token:    p.curToken,
 		Operator: p.curToken.Literal,
