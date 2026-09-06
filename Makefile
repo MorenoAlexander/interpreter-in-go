@@ -8,3 +8,6 @@ test_ast:
 
 test:
 	go test ./...
+
+run:
+	go run main.go
